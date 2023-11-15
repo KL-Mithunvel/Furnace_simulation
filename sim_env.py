@@ -1,13 +1,15 @@
 def init_sim():
     v = {
         'amb_Temp': 30,
-        'furnace_Temp': 35,
-        'time': 0
+        'furnace_temp': 35,
+        'time': 0,
+        "furnace_target_temp": 0
     }
 
     sim_s = {
-        'dt': 2,
-        'duration': 15
+        'dt': 1,
+        'duration': 25
+
     }
 
     furn_s = {
@@ -17,7 +19,7 @@ def init_sim():
         'max_feed_kgps':100,
 
         }
-    p = [(0,v['furnace_Temp']),
+    p = [(0,v['furnace_temp']),
          (2,50),
          (4,70),
          (6,30),
@@ -41,25 +43,33 @@ def construct_timeline(start_vars, sim_settings):
     while i <= sim_settings['duration']:
         clone = start_vars.copy()
         clone['time'] = i
+        left, right = get_ramp_edges(program, i)
+        clone['furnace_target_temp'] = t_ramp(left, right, i)
         time_line.append(clone)
         i += sim_settings['dt']
     return time_line
 
 
 def t_ramp(l, r, t):
+    r = r if r else l
     l_time = l[0]
     l_target = l[1]
     r_time = r[0]
     r_target = r[1]
 
-    # l_target + (l[1]-r[1])/(l[0]-r[0]) * t-r[0]
     t_diff = t - l_time
+    if r_time == t:
+        return r_target
+    if l_time == t:
+        return l_target
+    if l_time == r_time:
+        return l_target
     rate = (r_target - l_target) / (r_time - l_time)
     t_target = l_target + rate * t_diff
     return t_target
 
 
-def locate_program_step(p, t):
+def get_ramp_edges(p, t):
     # returns the left and right boundary steps for the given time
     # returns (l_step, r_step)
     l = p[0]
@@ -68,20 +78,14 @@ def locate_program_step(p, t):
     for i in p:
         if i[0] < t:
             l = i
-
         else:
             r = i
             break
-
     return l, r
 
 
-variables, settings, furnace_settings, programe = init_sim()
+variables, settings, furnace_settings, program = init_sim()
 tl = construct_timeline(variables, settings)
 for i in tl:
-    print('furnace_Temp', ' = ', i['furnace_Temp'], ' ,', 'time', ' = ', i['time'])
+    print("furnace_target_temp", ' = ', i["furnace_target_temp"], ' ,', 'time', ' = ', i['time'])
 
-
-left, right = locate_program_step(programe, 9)
-print(left)
-print(right)
