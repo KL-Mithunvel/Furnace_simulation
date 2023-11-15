@@ -1,5 +1,11 @@
 import sqlite3 as sql
 import mysql.connector as mysql
+
+
+
+
+
+
 con = sql.connect('coco.db')
 
 cur = con.cursor()
@@ -7,9 +13,9 @@ if cur:
     print('connected')
 else:
     print('not connected')
-#cur.execute('create table SHC (sno int primary key,Name varchar(255) ,Heatcepacity int not null)')
-con.execute("INSERT INTO TABLE SHC  VALUES(1,coal,25000 )")
-#cur.execute('select * from SHC')
+#cur.execute('create table SHC (sno int primary key,Name varchar(255) ,Heatcepacity int not null);')
+con.execute("INSERT INTO TABLE SHC  VALUES(1,coal,25000 );")
+#cur.execute('select * from SHC;')
 
 
 def create_tables():
