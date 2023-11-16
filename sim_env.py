@@ -9,7 +9,7 @@ def init_sim():
         'amb_Temp': 30,
         'furnace_temp': 35,
         'time': 0,
-        "furnace_target_temp": 0
+        "f_target_temp": 0
     }
 
     sim_s = {
@@ -118,5 +118,10 @@ for i in e["tl"]:
 
 df=prepare_data(e)
 print(df)
-df.plot()
+
+ax = df.plot()
+ax.set_ylabel('coco')
+ax.set_xlabel('time')
+ax.set_title('Temp vs time vs fuel')
+ax.grid(True)
 plt.show()
