@@ -1,3 +1,9 @@
+import numpy as np
+import pprint as pp
+import matplotlib.pyplot as plt
+import pandas as ps
+
+
 def init_sim():
     v = {
         'amb_Temp': 30,
@@ -9,7 +15,6 @@ def init_sim():
     sim_s = {
         'dt': 1,
         'duration': 25
-
     }
 
     furn_s = {
@@ -37,14 +42,18 @@ def print_all_var(v):
         print(i, ' = ', v[i])
 
 
-def construct_timeline(start_vars, sim_settings):
+def construct_timeline(env):
     time_line = []
     i = 0
-    while i <= sim_settings['duration']:
+    dur = e["settings"]['duration']
+    start_vars = e["var"]
+    program = e["program"]
+    sim_settings = e["settings"]
+    while i <= dur:
         clone = start_vars.copy()
         clone['time'] = i
         left, right = get_ramp_edges(program, i)
-        clone['furnace_target_temp'] = t_ramp(left, right, i)
+        clone['f_target_temp'] = t_ramp(left, right, i)
         time_line.append(clone)
         i += sim_settings['dt']
     return time_line
@@ -84,8 +93,30 @@ def get_ramp_edges(p, t):
     return l, r
 
 
-variables, settings, furnace_settings, program = init_sim()
-tl = construct_timeline(variables, settings)
-for i in tl:
-    print("furnace_target_temp", ' = ', i["furnace_target_temp"], ' ,', 'time', ' = ', i['time'])
+def prepare_data(env):
 
+    req = [x for x in env['tl'][0].keys() if x != 'time']
+    time = get_var_data_series('time')
+    data = dict()
+    for i in req:
+        data[i] = get_var_data_series(i)
+    df = ps.DataFrame(data, index=time)
+
+    return df
+
+
+def get_var_data_series(key):
+    data = ps.Series([x[key] for x in e["tl"]])
+    return data
+
+
+e = {}
+e["var"], e["settings"], e["f_settings"], e["program"] = init_sim()
+e["tl"] = construct_timeline(e)
+for i in e["tl"]:
+    print("furnace_target_temp", ' = ', i["f_target_temp"], ' ,', 'time', ' = ', i['time'])
+
+df=prepare_data(e)
+print(df)
+df.plot()
+plt.show()
