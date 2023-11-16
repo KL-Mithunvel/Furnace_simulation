@@ -95,13 +95,10 @@ def get_ramp_edges(p, t):
 
 
 def prepare_data(env):
-    req = [x for x in env['var'].keys() if x != 'time']
-    print('req',req)
+    req = [x for x in env['var'].keys() if x != 'time' and env['var'][x]['graph']]
     time = get_var_data_series('time')
-    print('time',time)
     data = dict()
     for i in req:
-        print(i)
         data[i] = get_var_data_series(i)
     df = ps.DataFrame(data, index=time)
 
