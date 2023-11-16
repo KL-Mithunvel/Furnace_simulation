@@ -6,10 +6,10 @@ import pandas as ps
 
 def init_sim():
     v = {
-        'amb_Temp': 30,
-        'furnace_temp': 35,
-        'time': 0,
-        "f_target_temp": 0
+        'amb_Temp': {'default': 30, 'graph': True},
+        'furnace_temp': {'default': 35, 'graph': True},
+        'time': {'default': None, 'graph': False},
+        "f_target_temp": {'default': 30, 'graph': True}
     }
 
     sim_s = {
@@ -21,19 +21,19 @@ def init_sim():
         'furnace_heatcap': 1,
         'furnace_mass': 2,
         'max_power_W': 1000,
-        'max_feed_kgps':100,
+        'max_feed_kgps': 100,
 
-        }
-    p = [(0,v['furnace_temp']),
-         (2,50),
-         (4,70),
-         (6,30),
-         (8,30),
-         (10,0),
-         (12,80),
-         (14,80),
-         (16,100),
-         (20,500),]
+    }
+    p = [(0, v['furnace_temp']['default']),
+         (2, 50),
+         (4, 70),
+         (6, 30),
+         (8, 30),
+         (10, 0),
+         (12, 80),
+         (14, 80),
+         (16, 100),
+         (20, 500), ]
     return v, sim_s, furn_s, p
 
 
@@ -46,7 +46,8 @@ def construct_timeline(env):
     time_line = []
     i = 0
     dur = e["settings"]['duration']
-    start_vars = e["var"]
+    pp.pp(e['var'])
+    start_vars = {k: v['default'] for (k, v) in e["var"].items()}
     program = e["program"]
     sim_settings = e["settings"]
     while i <= dur:
@@ -94,11 +95,13 @@ def get_ramp_edges(p, t):
 
 
 def prepare_data(env):
-
-    req = [x for x in env['tl'][0].keys() if x != 'time']
+    req = [x for x in env['var'].keys() if x != 'time']
+    print('req',req)
     time = get_var_data_series('time')
+    print('time',time)
     data = dict()
     for i in req:
+        print(i)
         data[i] = get_var_data_series(i)
     df = ps.DataFrame(data, index=time)
 
@@ -106,6 +109,7 @@ def prepare_data(env):
 
 
 def get_var_data_series(key):
+
     data = ps.Series([x[key] for x in e["tl"]])
     return data
 
@@ -116,12 +120,12 @@ e["tl"] = construct_timeline(e)
 for i in e["tl"]:
     print("furnace_target_temp", ' = ', i["f_target_temp"], ' ,', 'time', ' = ', i['time'])
 
-df=prepare_data(e)
+df = prepare_data(e)
 print(df)
 
 ax = df.plot()
-ax.set_ylabel('coco')
+ax.set_ylabel('Temperature °C')
 ax.set_xlabel('time')
-ax.set_title('Temp vs time vs fuel')
+ax.set_title('Simulation Result')
 ax.grid(True)
 plt.show()
