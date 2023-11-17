@@ -2,21 +2,30 @@ import numpy as np
 import pprint as pp
 import matplotlib.pyplot as plt
 import pandas as ps
+import random
 
 
-def init_sim():
+def init_env():
+    """
+    Creates and returns environment dictionary. Initialized to default variables.
+    :return: <dict> with keys var, settings, f_settings, program.
+    """
+
+    # dict for simulation variables.
     v = {
-        'amb_Temp': {'default': 30, 'graph': True},
-        'furnace_temp': {'default': 35, 'graph': True},
-        'time': {'default': None, 'graph': False},
-        "f_target_temp": {'default': 30, 'graph': True}
+        'amb_Temp': {'default': 30, 'graph': True, 'disp_text': 'Ambient Temp (°C)'},
+        'furnace_temp': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)'},
+        'time': {'default': None, 'graph': False, 'disp_text': 'Time (s)'},
+        'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)')
     }
 
+    # dict for simulation settings
     sim_s = {
         'dt': 1,
-        'duration': 25
+        'duration': 250
     }
 
+    # dict for furnace settings
     furn_s = {
         'furnace_heatcap': 1,
         'furnace_mass': 2,
@@ -24,25 +33,31 @@ def init_sim():
         'max_feed_kgps': 100,
 
     }
-    p = [(0, v['furnace_temp']['default']),
-         (2, 50),
-         (4, 70),
-         (6, 30),
-         (8, 30),
-         (10, 0),
-         (12, 80),
-         (14, 80),
-         (16, 100),
-         (20, 500), ]
-    return v, sim_s, furn_s, p
 
+    # Default 'Target Temp Program'
+    p = [(0, v['furnace_temp']['default']),     # First step HAS to be (0, ambient)
+         (20, 50),
+         (40, 70),
+         (60, 75),
+         (80, 80),
+         (100, 85),
+         (120, 95),
+         (140, 120),
+         (160, 100),
+         (200, 50),
+         ]
 
-def print_all_var(v):
-    for i in v.keys():
-        print(i, ' = ', v[i])
+    env = { "var": v, "settings": sim_s, "f_settings": furn_s, "program": p}
+    return env
 
 
 def construct_timeline(env):
+    """
+    Constructs a timeline list that has 1 element for each instance of time of simulation. Each time instance is
+    represented as a <dict> object.
+    :param env: pass the environment dict to this function. Needed to read default variables, settings config
+    :return: returns a dictionary
+    """
     time_line = []
     i = 0
     dur = e["settings"]['duration']
@@ -54,14 +69,22 @@ def construct_timeline(env):
         clone = start_vars.copy()
         clone['time'] = i
         left, right = get_ramp_edges(program, i)
-        clone['f_target_temp'] = t_ramp(left, right, i)
+        clone['f_target_temp'] = interpolate_ramp_t(left, right, i)
         time_line.append(clone)
         i += sim_settings['dt']
     return time_line
 
 
-def t_ramp(l, r, t):
-    r = r if r else l
+def interpolate_ramp_t(l, r, t):
+    """
+    Given two ramp points (Left_time, Left_temp) -> (Right_time, Right_temp), calculates the
+    linear interpolated value for the given point of time 't'
+    :param l: tuple of (left_time, left_temp)
+    :param r: tuple of (right_time, right_temp)
+    :param t: time value for which target temp is to be interpolated
+    :return: target_temp <float>
+    """
+    r = r if r else l       # if right value for ramp is not there, assume left continues.
     l_time = l[0]
     l_target = l[1]
     r_time = r[0]
@@ -80,6 +103,12 @@ def t_ramp(l, r, t):
 
 
 def get_ramp_edges(p, t):
+    """
+    from a given ramp program, finds the ramp points which are applicable for a given time instance.
+    :param p: ramp program
+    :param t: time value for which to find ramp points
+    :return: (left, right) values from the ramp program
+    """
     # returns the left and right boundary steps for the given time
     # returns (l_step, r_step)
     l = p[0]
@@ -94,7 +123,28 @@ def get_ramp_edges(p, t):
     return l, r
 
 
+def run_sim(env):
+    """
+    Runs the simulation calculations
+    :param env: Pass the environment dictionary
+    :return: Nothing. Result of execution will be saved in the env
+    """
+    pass
+    tl = env["tl"][1:]
+    prev_ti = env["tl"][0]
+
+    for ti in tl:   # iterate through each time instance in timeline
+        r = (100 - (random.randrange(-10, 10)))/100
+        ti['furnace_temp'] = ti['f_target_temp'] * r
+        prev_ti = ti
+
+
 def prepare_data(env):
+    """
+    Prepares data from the timeline for plotting. Returns Pandas DataFrame with variables needed for graph
+    :param env: pass the environment dictionary
+    :return: Pandas DataFrame
+    """
     req = [x for x in env['var'].keys() if x != 'time' and env['var'][x]['graph']]
     time = get_var_data_series('time')
     data = dict()
@@ -111,18 +161,18 @@ def get_var_data_series(key):
     return data
 
 
-e = {}
-e["var"], e["settings"], e["f_settings"], e["program"] = init_sim()
+def display_graph(data_f):
+    ax = data_f.plot()
+    ax.set_ylabel('Temperature °C')
+    ax.set_xlabel('time')
+    ax.set_title('Simulation Result')
+    ax.grid(True)
+    plt.show()
+
+
+e = init_env()
 e["tl"] = construct_timeline(e)
-for i in e["tl"]:
-    print("furnace_target_temp", ' = ', i["f_target_temp"], ' ,', 'time', ' = ', i['time'])
-
+run_sim(e)
 df = prepare_data(e)
-print(df)
+display_graph(df)
 
-ax = df.plot()
-ax.set_ylabel('Temperature °C')
-ax.set_xlabel('time')
-ax.set_title('Simulation Result')
-ax.grid(True)
-plt.show()
