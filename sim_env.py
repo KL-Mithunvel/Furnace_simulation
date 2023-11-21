@@ -13,9 +13,9 @@ def init_env():
         'furnace_temp': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)'},
         'time': {'default': None, 'graph': False, 'disp_text': 'Time (s)'},
         'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)'),
-        'f_acthive_temp': dict(default=30, graph=True, disp_text='Furnace acthive Temp (°C)'),
-        'fuel_added':dict(default=30, graph=True, disp_text='fuel quantity'),
-        'temp_drop':dict(default=1, graph=False, disp_text='newton cooling')
+        'f_achieved_temp': dict(default=30, graph=True, disp_text='Furnace achieved Temp (°C)'),
+        'fuel_added':dict(default=0, graph=True, disp_text='Fuel quantity'),
+        'temp_drop':dict(default=0, graph=False, disp_text='Drop dew to Newton cooling')
     }
 
     # dict for simulation settings
