@@ -31,9 +31,11 @@ def init_env():
         'furnace_mass': 2,
         'max_power_W': 1000,
         'max_feed_kgps': 100,
-        'fuel_name':'Electricity',
+        'fuel_name': 'Electricity',
         'fuel_unit': 'w',
-        'fuel_kj_per_unit': 5
+        'fuel_kj_per_unit': 5,
+        'newton_cooling': 4,
+        'max_fuel': 5
 
     }
 
