@@ -16,7 +16,10 @@ def init_env():
         'amb_Temp': {'default': 30, 'graph': True, 'disp_text': 'Ambient Temp (°C)'},
         'furnace_temp': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)'},
         'time': {'default': None, 'graph': False, 'disp_text': 'Time (s)'},
-        'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)')
+        'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)'),
+        'f_acthive_temp': dict(default=30, graph=True, disp_text='Furnace acthive Temp (°C)'),
+        'fuel_added':dict(default=30, graph=True, disp_text='fuel quantity'),
+        'temp_drop':dict(default=1, graph=False, disp_text='newton cooling')
     }
 
     # dict for simulation settings
@@ -34,8 +37,11 @@ def init_env():
         'fuel_name': 'Electricity',
         'fuel_unit': 'w',
         'fuel_kj_per_unit': 5,
-        'newton_cooling': 4,
-        'max_fuel': 5
+        'newton_cooling_con': 4,
+        'max_fuel': 5,
+        'pay_load_kg': 5,
+        'shc_pay_load': 5
+
 
     }
 
