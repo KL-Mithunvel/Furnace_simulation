@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as ps
 
+
 def prepare_data(env):
     """
     Prepares data from the timeline for plotting. Returns Pandas DataFrame with variables needed for graph

@@ -1,9 +1,5 @@
-import numpy as np
 import pprint as pp
-import matplotlib.pyplot as plt
-import pandas as ps
-import random
-import plot
+
 
 def init_env():
     """
@@ -62,30 +58,6 @@ def init_env():
     return env
 
 
-def construct_timeline(env):
-    """
-    Constructs a timeline list that has 1 element for each instance of time of simulation. Each time instance is
-    represented as a <dict> object.
-    :param env: pass the environment dict to this function. Needed to read default variables, settings config
-    :return: returns a dictionary
-    """
-    time_line = []
-    i = 0
-    dur = e["settings"]['duration']
-    pp.pp(e['var'])
-    start_vars = {k: v['default'] for (k, v) in e["var"].items()}
-    program = e["program"]
-    sim_settings = e["settings"]
-    while i <= dur:
-        clone = start_vars.copy()
-        clone['time'] = i
-        left, right = get_ramp_edges(program, i)
-        clone['f_target_temp'] = interpolate_ramp_t(left, right, i)
-        time_line.append(clone)
-        i += sim_settings['dt']
-    return time_line
-
-
 def interpolate_ramp_t(l, r, t):
     """
     Given two ramp points (Left_time, Left_temp) -> (Right_time, Right_temp), calculates the
@@ -134,28 +106,31 @@ def get_ramp_edges(p, t):
     return l, r
 
 
-def run_sim(env):
+def construct_timeline(e):
     """
-    Runs the simulation calculations
-    :param env: Pass the environment dictionary
-    :return: Nothing. Result of execution will be saved in the env
+    Constructs a timeline list that has 1 element for each instance of time of simulation. Each time instance is
+    represented as a <dict> object.
+    :param e: pass the environment dict to this function. Needed to read default variables, settings config
+    :return: returns a dictionary
     """
-    pass
-    tl = env["tl"][1:]
-    prev_ti = env["tl"][0]
+    time_line = []
+    i = 0
+    dur = e["settings"]['duration']
+    pp.pp(e['var'])
+    start_vars = {k: v['default'] for (k, v) in e["var"].items()}
+    program = e["program"]
+    sim_settings = e["settings"]
+    while i <= dur:
+        clone = start_vars.copy()
+        clone['time'] = i
+        left, right = get_ramp_edges(program, i)
+        clone['f_target_temp'] = interpolate_ramp_t(left, right, i)
+        time_line.append(clone)
+        i += sim_settings['dt']
+    return time_line
 
-    for ti in tl:   # iterate through each time instance in timeline
-        r = (100 - (random.randrange(-10, 10)))/100
-        ti['furnace_temp'] = ti['f_target_temp'] * r
-        prev_ti = ti
 
-
-
-
-
-e = init_env()
-e["tl"] = construct_timeline(e)
-run_sim(e)
-df = plot.prepare_data(e)
-plot.display_graph(df)
-
+def new_env():
+    e = init_env()
+    e["tl"] = construct_timeline(e)
+    return e
