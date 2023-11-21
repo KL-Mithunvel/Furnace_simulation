@@ -3,7 +3,7 @@ import pprint as pp
 import matplotlib.pyplot as plt
 import pandas as ps
 import random
-
+import plot
 
 def init_env():
     """
@@ -31,6 +31,9 @@ def init_env():
         'furnace_mass': 2,
         'max_power_W': 1000,
         'max_feed_kgps': 100,
+        'fuel_name':'Electricity',
+        'fuel_unit': 'w',
+        'fuel_kj_per_unit': 5
 
     }
 
@@ -145,6 +148,6 @@ def run_sim(env):
 e = init_env()
 e["tl"] = construct_timeline(e)
 run_sim(e)
-df = prepare_data(e)
-display_graph(df)
+df = plot.prepare_data(e)
+plot.display_graph(df)
 

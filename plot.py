@@ -8,16 +8,16 @@ def prepare_data(env):
     :return: Pandas DataFrame
     """
     req = [x for x in env['var'].keys() if x != 'time' and env['var'][x]['graph']]
-    time = get_var_data_series('time')
+    time = get_var_data_series('time', env)
     data = dict()
     for i in req:
-        data[i] = get_var_data_series(i)
+        data[i] = get_var_data_series(i, env)
     df = ps.DataFrame(data, index=time)
 
     return df
 
 
-def get_var_data_series(key):
+def get_var_data_series(key, e):
 
     data = ps.Series([x[key] for x in e["tl"]])
     return data
