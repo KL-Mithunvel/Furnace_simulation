@@ -8,6 +8,7 @@ import klm_menu
 import sim_env
 import plot_sim
 import simulate
+import edit_sim
 
 # import klm_menu
 
@@ -23,8 +24,20 @@ def run_sim():
 
 def plot_graph():
     global e
-    df = plot_sim.prepare_data(e)
-    plot_sim.display_graph(df)
+    if e['status']:
+        df = plot_sim.prepare_data(e)
+        plot_sim.display_graph(df)
+    else:
+        print("Run Simulation first.")
+
+
+def export_data():
+    global e
+    if e['status']:
+        df = plot_sim.prepare_data(e)
+        plot_sim.export_data(df)
+    else:
+        print("Run Simulation first.")
 
 
 def show_menu(m):
@@ -35,12 +48,29 @@ def show_menu(m):
         cmd, menu_name = klm_menu.present_menu("simulation", m)
         ex = cmd == "exit"
         print(cmd)
-        if cmd=="new_sim":
+        if cmd == "new_sim":
             new_sim()
-        elif cmd=="run_sim":
+
+        elif cmd == "run_sim":
             run_sim()
-        elif cmd=="plot":
+
+        elif cmd == "plot":
             plot_graph()
+
+        elif cmd == "export":
+            export_data()
+
+        elif cmd == "edit_var":
+            edit_sim.edit_var(e)
+
+        elif cmd == "edit_f_settings":
+            edit_sim.edit_f_settings(e)
+
+        elif cmd == "edit_sim_settings":
+            edit_sim.edit_sim_settings(e)
+
+        elif cmd == "conf_out":
+            edit_sim.conf_out(e)
 
 
 sim_menu = {
@@ -87,4 +117,5 @@ menu_system = {"simulation": sim_menu,
                "edit_sim": edit_sim_menu}
 
 e = {}
+new_sim()
 show_menu(menu_system)
