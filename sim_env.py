@@ -54,7 +54,7 @@ def init_env():
          (200, 50),
          ]
 
-    env = { "var": v, "settings": sim_s, "f_settings": furn_s, "program": p}
+    env = { "var": v, "settings": sim_s, "f_settings": furn_s, "program": p, "status": None}
     return env
 
 

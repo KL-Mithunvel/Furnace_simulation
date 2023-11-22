@@ -17,3 +17,5 @@ def run_sim(env):
         prev_ti = ti
 
     print("Simulation Run.")
+    env['status'] = True
+

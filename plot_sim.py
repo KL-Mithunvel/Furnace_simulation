@@ -31,3 +31,7 @@ def display_graph(data_f):
     ax.set_title('Simulation Result')
     ax.grid(True)
     plt.show()
+
+
+def export_data(df):
+    pass
