@@ -18,6 +18,8 @@ def init_env():
         'temp_drop': dict(default=0, graph=False, disp_text='Drop dew to Newton cooling', is_internal=True)
     }
 
+
+
     # dict for simulation settings
     sim_s = {
         'dt': 1,
@@ -32,7 +34,7 @@ def init_env():
         'max_feed_kgps': 100,
         'fuel_name': 'Electricity',
         'fuel_unit': 'w',
-        'fuel_kj_per_unit': 5,
+                'fuel_kj_per_unit': 5,
         'newton_cooling_con': 4,
         'max_fuel': 5,
         'pay_load_kg': 5,

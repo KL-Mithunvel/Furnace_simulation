@@ -77,7 +77,7 @@ def show_menu(m):
 
 
 sim_menu = {
-    "menu": "Furnace Simulation Menu",
+    "menu": "Furnace Simulation Main Menu",
     "name": "simulation",
     "options": [
         ["new_sim", "New Simulation", "n"],
@@ -110,15 +110,28 @@ output_menu = {
     "options": [
         ["conf_out", "Configure Output", "c"],
         ["plot", "Plot Graph", "p"],
-        ["export", "Export Data", "e"],
+        ["menu:export", "Export Data", "e"],
     ],
     "back_option": True,
     "back_to": "simulation"
 }
+exp_menu = {
+    "menu": "Export Menu",
+    "name": "export",
+    "options": [
+        ["CSV_save", "CSV save", "c"],
+        ["plot", "Plot Graph", "p"],
+        ["save_config", "Save configration", "s"],
+    ],
+    "back_option": True,
+    "back_to": "sim_output"}
+
 
 menu_system = {"simulation": sim_menu,
                "sim_output": output_menu,
-               "edit_sim": edit_sim_menu}
+               "edit_sim": edit_sim_menu,
+               'export': exp_menu
+               }
 
 e = {}
 new_sim()
