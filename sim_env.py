@@ -9,13 +9,13 @@ def init_env():
 
     # dict for simulation variables.
     v = {
-        'amb_Temp': {'default': 30, 'graph': True, 'disp_text': 'Ambient Temp (°C)'},
-        'furnace_temp': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)'},
-        'time': {'default': None, 'graph': False, 'disp_text': 'Time (s)'},
-        'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)'),
-        'f_achieved_temp': dict(default=30, graph=True, disp_text='Furnace achieved Temp (°C)'),
-        'fuel_added':dict(default=0, graph=True, disp_text='Fuel quantity'),
-        'temp_drop':dict(default=0, graph=False, disp_text='Drop dew to Newton cooling')
+        'amb_Temp': {'default': 30, 'graph': True, 'disp_text': 'Ambient Temp (°C)', 'is_internal': False},
+        'furnace_temp': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)', 'is_internal': False},
+        'time': {'default': None, 'graph': False, 'disp_text': 'Time (s)', 'is_internal': True},
+        'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)', is_internal=False),
+        'f_achieved_temp': dict(default=30, graph=True, disp_text='Furnace achieved Temp (°C)', is_internal=True),
+        'fuel_added': dict(default=0, graph=True, disp_text='Fuel quantity', is_internal=False),
+        'temp_drop': dict(default=0, graph=False, disp_text='Drop dew to Newton cooling', is_internal=True)
     }
 
     # dict for simulation settings
