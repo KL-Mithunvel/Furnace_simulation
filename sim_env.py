@@ -4,7 +4,7 @@ import pprint as pp
 def init_env():
     """
     Creates and returns environment dictionary. Initialized to default variables.
-    :return: <dict> with keys var, settings, f_settings, program.
+    :return: <dict> with keys var, settings, f_settings, program, status, str_inputs.
     """
 
     # dict for simulation variables.
@@ -57,6 +57,7 @@ def init_env():
 
     env = { "var": v, "settings": sim_s, "f_settings": furn_s, "program": p, "status": None,
             "str_inputs": str_inp}
+
     return env
 
 
@@ -132,6 +133,10 @@ def construct_timeline(e):
 
 
 def new_env():
+    """
+    Constructs a new environment dict with default values. Then constructs timeline.
+    :return: env dictionary
+    """
     e = init_env()
     e["tl"] = construct_timeline(e)
     return e
