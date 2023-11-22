@@ -52,7 +52,16 @@ def edit_sim_settings(e):
 
 
 def conf_out(e):
-    pass
+    for s,v in e['var'].items():
+        prompt = f'Show Variable {s}? {"YES" if v["graph"] else "* NO *"}. Enter new value: [y/n]? '
+        res = input(prompt)
+        if len(res) != 0:
+            v["graph"] = res.strip().lower() == 'y'
+
+    selected = [x for x in e['var'].keys() if e['var'][x]['graph']]
+    print("Selected Variables:")
+    for i in selected:
+        print(i)
 
 
 def print_all_settings(e):
