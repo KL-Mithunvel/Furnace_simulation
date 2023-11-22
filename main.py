@@ -72,6 +72,9 @@ def show_menu(m):
         elif cmd == "conf_out":
             edit_sim.conf_out(e)
 
+        elif cmd == "print_settings":
+            edit_sim.print_all_settings(e)
+
 
 sim_menu = {
     "menu": "Furnace Simulation Menu",
@@ -95,6 +98,7 @@ edit_sim_menu = {
         ["edit_var", "Edit Variables", "v"],
         ["edit_f_settings", "Edit Furnace Settings", "f"],
         ["edit_sim_settings", "Edit Simulation Settings", "s"],
+        ["print_settings", "Print All Settings & Variables", "p"],
     ],
     "back_option": True,
     "back_to": "simulation"
