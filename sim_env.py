@@ -37,9 +37,10 @@ def init_env():
         'max_fuel': 5,
         'pay_load_kg': 5,
         'shc_pay_load': 5
-
-
     }
+
+    # list of all settings that are strings. Rest are all assumed to be float
+    str_inp = ['fuel_name', 'fuel_unit']
 
     # Default 'Target Temp Program'
     p = [(0, v['furnace_temp']['default']),     # First step HAS to be (0, ambient)
@@ -54,7 +55,8 @@ def init_env():
          (200, 50),
          ]
 
-    env = { "var": v, "settings": sim_s, "f_settings": furn_s, "program": p, "status": None}
+    env = { "var": v, "settings": sim_s, "f_settings": furn_s, "program": p, "status": None,
+            "str_inputs": str_inp}
     return env
 
 
@@ -116,7 +118,6 @@ def construct_timeline(e):
     time_line = []
     i = 0
     dur = e["settings"]['duration']
-    pp.pp(e['var'])
     start_vars = {k: v['default'] for (k, v) in e["var"].items()}
     program = e["program"]
     sim_settings = e["settings"]
