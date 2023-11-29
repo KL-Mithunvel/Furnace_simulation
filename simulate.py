@@ -12,6 +12,11 @@ def run_sim(env):
     prev_ti = env["tl"][0]
 
     for ti in tl:   # iterate through each time instance in timeline
+        # 1. calculate cooling of furnace
+        # 2. required temp difference = target temp - cooled furnace temp
+        # 3. calculate fuel qty required to produce the temp diff required
+        # 4. clamp fuel qty with max & if required, recalculate temp diff achieved
+        # 5. save calculation in TL
         r = (100 - (random.randrange(-10, 10)))/100
         ti['furnace_temp'] = ti['f_target_temp'] * r
         prev_ti = ti
