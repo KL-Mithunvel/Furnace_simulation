@@ -32,23 +32,26 @@ def run_sim(env):
         joules_required = temp_diff * payload_shc * payload_mass
         # 3. calculate fuel qty required to produce the temp diff required
         fuel_required_kg = joules_required / fuel_calorific_value
+        temp_diff_achieved = temp_diff
+        joules_achieved = joules_required
+
         # 4. clamp fuel qty with max & if required, recalculate temp diff achieved
         if fuel_required_kg > max_allowed_fuel:
             fuel_required_kg = max_allowed_fuel
             joules_achieved = fuel_required_kg * fuel_calorific_value
             temp_diff_achieved = joules_achieved / payload_shc
-        else:
-            joules_achieved = joules_required
-            temp_diff_achieved = temp_diff
 
         # 5. save calculation in TL
         ti['f_achieved_temp'] = cur_f_temp + temp_diff_achieved
         ti['fuel_added'] = fuel_required_kg
         ti['temp_drop'] = cooling
 
-        # debug output:
+        # debug output - REMOVE BEFORE FLIGHT:
         print(ti)
+        print(f'temp_diff:{temp_diff}, joules_required:{joules_required}, joules_achieved:{joules_achieved},' 
+              f' fuel_required_kg:{fuel_required_kg}')
 
+        # Prepare for next iteration
         prev_ti = ti
 
 
