@@ -16,8 +16,10 @@ def get_dict_input(d, str_inputs, no_input=None):
     :param no_input: Optional. list containing keys which need not be input, even though it is in dict
     """
     changed = False
+
+    no_input = no_input or []
     for setting, val in d.items():
-        if no_input and setting not in no_input:
+        if setting not in no_input:
             prompt = f'{setting} [{val}]:'
             new_val = input(prompt)
             if len(new_val) != 0:
