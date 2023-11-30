@@ -17,15 +17,15 @@ def run_sim(env):
 
     for ti in tl:   # iterate through each time instance in timeline
         # 1. calculate cooling of furnace
-        cur_f_temp = ti['furnace_temp_previous']
-        ambient = ti['amb_Temp']
+        cur_f_temp = prev_ti['f_achieved_temp']
+        ambient = ti['amb_temp']
         target_temp = ti['f_target_temp']
         payload_shc = env['f_settings']['payload_sp_heat_capacity']
         payload_mass = env['f_settings']['payload_kg']
         max_allowed_fuel =  env['f_settings']['fuel_max_feed_rate']
         fuel_calorific_value = env['f_settings']['fuel_calorific_value']
 
-        cooling = cooling_delta_t(cur_f_temp, ambient)
+        cooling = cooling_delta_t(env['settings']['dt'], env['f_settings']['newton_cooling_con'], ambient, cur_f_temp)
         cooled_f_temp = cur_f_temp - cooling
         # 2. required temp difference = target temp - cooled furnace temp
         temp_diff = target_temp - cooled_f_temp
@@ -42,10 +42,15 @@ def run_sim(env):
             temp_diff_achieved = temp_diff
 
         # 5. save calculation in TL
-        tl['f_achieved_temp'] = cur_f_temp + temp_diff_achieved
-        tl['fuel_added'] = fuel_required_kg
-        tl['temp_drop'] = cooling
+        ti['f_achieved_temp'] = cur_f_temp + temp_diff_achieved
+        ti['fuel_added'] = fuel_required_kg
+        ti['temp_drop'] = cooling
+
+        # debug output:
+        print(ti)
+
         prev_ti = ti
+
 
     print("Simulation Run.")
     env['status'] = True

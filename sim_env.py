@@ -10,7 +10,6 @@ def init_env():
     # dict for simulation variables.
     v = {
         'amb_temp': {'default': 30, 'graph': True, 'disp_text': 'Ambient Temp (°C)', 'is_internal': False},
-        'furnace_temp_previous': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)', 'is_internal': False},
         'time': {'default': None, 'graph': False, 'disp_text': 'Time (s)', 'is_internal': True},
         'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)', is_internal=False),
         'f_achieved_temp': dict(default=30, graph=True, disp_text='Furnace achieved Temp (°C)', is_internal=True),
@@ -32,7 +31,7 @@ def init_env():
         'furnace_mass': 2,
         'fuel_name': 'Electricity',
         'fuel_unit': 'w',
-        'fuel_calorific_value': 5,      # KJ / unit
+        'fuel_calorific_value': 50000,      # KJ / unit
         'fuel_max_feed_rate': 100,      # units / time interval
         'newton_cooling_con': 4,
         'payload_kg': 5,
@@ -43,7 +42,7 @@ def init_env():
     str_inp = ['fuel_name', 'fuel_unit']
 
     # Default 'Target Temp Program'
-    p = [(0, v['furnace_temp']['default']),     # First step HAS to be (0, ambient)
+    p = [(0, v['amb_temp']['default']),     # First step HAS to be (0, ambient)
          (20, 50),
          (40, 70),
          (60, 75),
