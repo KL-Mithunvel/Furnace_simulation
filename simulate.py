@@ -5,6 +5,7 @@ def cooling_delta_t(t_duration, k_constant, ambient, furnace_temp):
     delta = (ambient-furnace_temp)*math.e**(-1*k_constant*t_duration)
     return delta
 
+
 def run_sim(env):
     """
     Runs the simulation calculations
