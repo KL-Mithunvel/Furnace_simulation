@@ -34,7 +34,7 @@ def init_env():
         'fuel_calorific_value': 50000,      # KJ / unit
         'fuel_max_feed_rate': 100,      # units / time interval
         'newton_cooling_con': 4,
-        'payload_kg': 5,
+        'payload_kg': 500,
         'payload_sp_heat_capacity': 4000,  # KJ / (Kg.K)
     }
 
