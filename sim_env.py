@@ -29,9 +29,9 @@ def init_env():
     furn_s = {
         'furnace_heatcap': 1,
         'furnace_mass': 2,
-        'fuel_name': 'Electricity',
-        'fuel_unit': 'w',
-        'fuel_calorific_value': 50000,      # KJ / unit
+        'fuel_name': 'methane',
+        'fuel_unit': 'kg',
+        'fuel_calorific_value': 35000,      # KJ / unit
         'fuel_max_feed_rate': 100,      # units / time interval
         'newton_cooling_con': 4,
         'payload_kg': 500,

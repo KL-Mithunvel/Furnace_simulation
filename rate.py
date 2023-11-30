@@ -1,6 +1,10 @@
 import math
 
 
+#def itr_timeline(env):
+ #   for i in range(len(e['tl'])):
+
+
 def cooling(e):
     #T(t) = Ts + (Ts – To) e^(-kt)
     #for the time being just returns final temp
@@ -14,10 +18,11 @@ def cooling(e):
 
 
 
-def heat_given(env):
-    #
+def mass_of_fuel(env):
     fuel_kj_per_unit = env['f_settings']['fuel_kj_per_unit']
-
+    heat_req=3      #needs calc
+    for i in range(len(env['tl'])):
+        env['tl'][i]
 def temp_disp(ts, t0, t, rate):
     print('rate is ', rate)
     T_vs_t = []

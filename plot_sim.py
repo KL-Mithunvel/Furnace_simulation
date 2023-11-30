@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as ps
+import csv
 
 
 def prepare_data(env):
@@ -26,12 +27,20 @@ def get_var_data_series(key, e):
 
 def display_graph(data_f):
     ax = data_f.plot()
+    ax.grid(True)
     ax.set_ylabel('Temperature °C')
     ax.set_xlabel('time')
     ax.set_title('Simulation Result')
-    ax.grid(True)
     plt.show()
 
 
-def export_data(df):
+def export_data(env, f):
+    tl = env['tl']
+    file_obj = open(f, 'w')
+    file_obj.write(str(['f_target_temp','f_achieved_temp','fuel_added']))
+    for i in range(len(tl)):
+        file_obj.write(str([tl[i]['f_target_temp'], tl[i]['f_achieved_temp'], tl[i]['fuel_added']]))
     pass
+
+
+
