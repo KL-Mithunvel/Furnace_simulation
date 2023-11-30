@@ -44,8 +44,9 @@ def show_menu(m):
     # display menu to user
     global e
     ex = False
+    menu_name = "simulation"
     while not ex:
-        cmd, menu_name = klm_menu.present_menu("simulation", m)
+        cmd, menu_name = klm_menu.present_menu(menu_name, m)
         ex = cmd == "exit"
         print(cmd)
         if cmd == "new_sim":
@@ -119,7 +120,7 @@ exp_menu = {
     "menu": "Export Menu",
     "name": "export",
     "options": [
-        ["CSV_save", "CSV save", "c"],
+        ["csv_save", "CSV save", "c"],
         ["plot", "Plot Graph", "p"],
         ["save_config", "Save configration", "s"],
     ],
@@ -134,5 +135,8 @@ menu_system = {"simulation": sim_menu,
                }
 
 e = {}
+f = r'C:\Users\klmit\PycharmProjects\Furnace_simulation\test'
 new_sim()
 show_menu(menu_system)
+plot_sim.export_data(e, f)
+
