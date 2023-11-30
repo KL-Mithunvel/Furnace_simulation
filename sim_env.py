@@ -9,8 +9,8 @@ def init_env():
 
     # dict for simulation variables.
     v = {
-        'amb_Temp': {'default': 30, 'graph': True, 'disp_text': 'Ambient Temp (°C)', 'is_internal': False},
-        'furnace_temp': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)', 'is_internal': False},
+        'amb_temp': {'default': 30, 'graph': True, 'disp_text': 'Ambient Temp (°C)', 'is_internal': False},
+        'furnace_temp_previous': {'default': 35, 'graph': True, 'disp_text': 'Furnace Temp (°C)', 'is_internal': False},
         'time': {'default': None, 'graph': False, 'disp_text': 'Time (s)', 'is_internal': True},
         'f_target_temp': dict(default=30, graph=True, disp_text='Furnace Target Temp (°C)', is_internal=False),
         'f_achieved_temp': dict(default=30, graph=True, disp_text='Furnace achieved Temp (°C)', is_internal=True),
@@ -30,15 +30,13 @@ def init_env():
     furn_s = {
         'furnace_heatcap': 1,
         'furnace_mass': 2,
-        'max_power_W': 1000,
-        'max_feed_kgps': 100,
         'fuel_name': 'Electricity',
         'fuel_unit': 'w',
-                'fuel_kj_per_unit': 5,
+        'fuel_calorific_value': 5,      # KJ / unit
+        'fuel_max_feed_rate': 100,      # units / time interval
         'newton_cooling_con': 4,
-        'max_fuel': 5,
-        'pay_load_kg': 5,
-        'shc_pay_load': 5
+        'payload_kg': 5,
+        'payload_sp_heat_capacity': 1,  # KJ / (Kg.K)
     }
 
     # list of all settings that are strings. Rest are all assumed to be float
