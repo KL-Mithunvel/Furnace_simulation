@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as ps
-import csv
+import pickle
 
 
 def prepare_data(env):
@@ -42,5 +42,10 @@ def export_data(env, f):
         file_obj.write(str([tl[i]['f_target_temp'], tl[i]['f_achieved_temp'], tl[i]['fuel_added']]))
     pass
 
+
+def pic_dump(env, f):
+    file_obj = open(f, 'wb')
+    pickle.dump(env['furn_s'],file_obj)
+    pickle.dump(env['settings'],file_obj)
 
 
