@@ -26,7 +26,7 @@ def plot_graph():
     global e
     if e['status']:
         df = plot_sim.prepare_data(e)
-        plot_sim.display_graph(df)
+        plot_sim.display_graph(df,e)
     else:
         print("Run Simulation first.")
 
@@ -83,6 +83,8 @@ def show_menu(m):
 
         elif cmd =='pic_dump':
             edit_sim.pic_dump(e)
+        elif cmd =='csv_save':
+            plot_sim.csv_write(e)
 
 
 

@@ -33,7 +33,7 @@ def display_graph(data_f,env):
     ax.set_xlabel('time')
     ax.set_title('Simulation Result')
     ax2=ax.twinx()
-    ax2.set_ylabel('Quandity of Fuel used'+env["str_inputs"]['fuel_unit'])
+    ax2.set_ylabel('Quantity of Fuel used '+env['f_settings']['fuel_unit'])
     plt.show()
 
 
