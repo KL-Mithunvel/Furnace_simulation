@@ -123,26 +123,16 @@ output_menu = {
     "options": [
         ["conf_out", "Configure Output", "c"],
         ["plot", "Plot Graph", "p"],
-        ["menu:export", "Export Data", "e"],
+        ["csv_save", "CSV save", "c"],
     ],
     "back_option": True,
     "back_to": "simulation"
 }
-exp_menu = {
-    "menu": "Export Menu",
-    "name": "export",
-    "options": [
-        ["csv_save", "CSV save", "c"],
-        ["plot", "Plot Graph", "p"],
-        ],
-    "back_option": True,
-    "back_to": "sim_output"}
 
 
 menu_system = {"simulation": sim_menu,
                "sim_output": output_menu,
                "edit_sim": edit_sim_menu,
-               'export': exp_menu
                }
 
 e = {}
