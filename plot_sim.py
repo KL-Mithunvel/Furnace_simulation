@@ -32,6 +32,8 @@ def display_graph(data_f):
     ax.set_ylabel('Temperature °C')
     ax.set_xlabel('time')
     ax.set_title('Simulation Result')
+    ax2=ax.twinx()
+    ax2.set_ylabel('Quandity of Fuel used'+)
     plt.show()
 
 
