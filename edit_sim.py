@@ -1,4 +1,4 @@
-
+import pickle
 def sim_dirty(e):
     """
     Function that marks that the simulation timeline is 'dirty' and needs to
@@ -77,3 +77,18 @@ def print_all_settings(e):
     print("\nVariables:\n")
     for setting, value in e['tl'][0].items():
         print(f'{setting}: {value}')
+
+
+
+def pic_dump(env):
+    f=input('enter the file:')
+    file_obj = open(f, 'wb')
+    pickle.dump(env['furn_s'],file_obj)
+    pickle.dump(env['settings'],file_obj)
+
+
+def pic_load():
+    f=input('enter the file:')
+    file_obj = open(f, 'rb')
+    x=pickle.load(file_obj)
+    return x

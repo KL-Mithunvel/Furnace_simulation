@@ -42,14 +42,3 @@ def export_data(env, f):
         file_obj.write(str([tl[i]['f_target_temp'], tl[i]['f_achieved_temp'], tl[i]['fuel_added']]))
     pass
 
-
-def pic_dump(env, f):
-    file_obj = open(f, 'wb')
-    pickle.dump(env['furn_s'],file_obj)
-    pickle.dump(env['settings'],file_obj)
-
-
-def pic_load(f):
-    file_obj = open(f, 'rb')
-    x=pickle.load(file_obj)
-    return x

@@ -77,12 +77,12 @@ def show_menu(m):
             edit_sim.print_all_settings(e)
 
         elif cmd =='pic_load':
-            file = input('enter file name:')
-            plot_sim.pic_load(file)
+
+            e=edit_sim.pic_load()
 
         elif cmd =='pic_dump':
-            file = input('enter file name:')
-            plot_sim.pic_dump(e,file)
+
+            edit_sim.pic_dump(e)
 
 
 
