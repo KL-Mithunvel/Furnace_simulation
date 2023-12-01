@@ -45,7 +45,7 @@ def export_data(env, f):
 
 
 def csv_write(env):
-    f=input('Enter the file name:')
+    f=input('Enter the File name:')
     tl = env['tl']
     file_obj = open(f, 'w', newline='')
     write_obj=csv.writer(file_obj)
