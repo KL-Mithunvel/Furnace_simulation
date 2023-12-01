@@ -1,3 +1,5 @@
+import csv
+
 import matplotlib.pyplot as plt
 import pandas as ps
 
@@ -42,8 +44,16 @@ def export_data(env, f):
     pass
 
 
-def csv_write(e):
+def csv_write(env):
     f=input('Enter the file name:')
+    tl = env['tl']
+    file_obj = open(f, 'w', newline='')
+    write_obj=csv.writer(file_obj)
+    write_obj.writerow(['f_target_temp','f_achieved_temp','fuel_added'])
+    for i in range(len(tl)):
+        write_obj.writerow([tl[i]['f_target_temp'],tl[i]['f_achieved_temp'],tl[i]['fuel_added']])
+
+
 
 
 

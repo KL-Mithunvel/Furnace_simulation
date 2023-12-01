@@ -77,12 +77,11 @@ def show_menu(m):
             edit_sim.print_all_settings(e)
 
         elif cmd =='pic_load':
-
             e['f_settings'],e['settings']=edit_sim.pic_load()
-
+            print('f_settings',e['f_settings'])
+            print('settings',e['settings'])
 
         elif cmd =='pic_dump':
-
             edit_sim.pic_dump(e)
 
 
