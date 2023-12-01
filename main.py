@@ -76,6 +76,15 @@ def show_menu(m):
         elif cmd == "print_settings":
             edit_sim.print_all_settings(e)
 
+        elif cmd =='pic_load':
+            file = input('enter file name:')
+            plot_sim.pic_load(file)
+
+        elif cmd =='pic_dump':
+            file = input('enter file name:')
+            plot_sim.pic_dump(e,file)
+
+
 
 sim_menu = {
     "menu": "Furnace Simulation Main Menu",
@@ -100,6 +109,8 @@ edit_sim_menu = {
         ["edit_f_settings", "Edit Furnace Settings", "f"],
         ["edit_sim_settings", "Edit Simulation Settings", "s"],
         ["print_settings", "Print All Settings & Variables", "p"],
+        ['pic_load', 'load data', 'l'],
+        ['pic_dump', 'dump data', 'd'],
     ],
     "back_option": True,
     "back_to": "simulation"

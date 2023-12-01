@@ -49,7 +49,7 @@ def pic_dump(env, f):
     pickle.dump(env['settings'],file_obj)
 
 
-def pic_load(env, f):
+def pic_load(f):
     file_obj = open(f, 'rb')
-    pickle.load(file_obj)
-    pickle.load(file_obj)
+    x=pickle.load(file_obj)
+    return x
