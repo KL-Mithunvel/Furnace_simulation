@@ -78,7 +78,8 @@ def show_menu(m):
 
         elif cmd =='pic_load':
 
-            e=edit_sim.pic_load()
+            e['f_settings'],e['settings']=edit_sim.pic_load()
+
 
         elif cmd =='pic_dump':
 
@@ -133,8 +134,7 @@ exp_menu = {
     "options": [
         ["csv_save", "CSV save", "c"],
         ["plot", "Plot Graph", "p"],
-        ["save_config", "Save configration", "s"],
-    ],
+        ],
     "back_option": True,
     "back_to": "sim_output"}
 
@@ -149,5 +149,3 @@ e = {}
 f = r'C:\Users\klmit\PycharmProjects\Furnace_simulation\test'
 new_sim()
 show_menu(menu_system)
-plot_sim.export_data(e, f)
-

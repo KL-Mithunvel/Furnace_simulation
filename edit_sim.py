@@ -81,14 +81,15 @@ def print_all_settings(e):
 
 
 def pic_dump(env):
-    f=input('enter the file:')
+    f = input('Enter the file:')
     file_obj = open(f, 'wb')
-    pickle.dump(env['furn_s'],file_obj)
-    pickle.dump(env['settings'],file_obj)
+    pickle.dump(env['f_settings'], file_obj)
+    pickle.dump(env['settings'], file_obj)
 
 
 def pic_load():
-    f=input('enter the file:')
+    f = input('Enter the file:')
     file_obj = open(f, 'rb')
-    x=pickle.load(file_obj)
-    return x
+    x = pickle.load(file_obj)
+    y = pickle.load(file_obj)
+    return x, y

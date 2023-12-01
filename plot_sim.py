@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import pandas as ps
-import pickle
 
 
 def prepare_data(env):
@@ -41,4 +40,11 @@ def export_data(env, f):
     for i in range(len(tl)):
         file_obj.write(str([tl[i]['f_target_temp'], tl[i]['f_achieved_temp'], tl[i]['fuel_added']]))
     pass
+
+
+def csv_write(e):
+    f=input('Enter the file name:')
+
+
+
 
